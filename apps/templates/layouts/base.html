@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}Library{% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+
+{% include "includes/header.html" %}
+
+
+{% block content %}
+
+{% endblock content %}
+
+
+{% include "includes/footer.html" %}
+
+</body>
+
+</html>
