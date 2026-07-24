@@ -25,4 +25,5 @@ urlpatterns = [
     path('', apps.bookmodule.views.index),
      path('bookmodule/', include('apps.bookmodule.urls')),
     path('usermodule/', include('apps.usermodule.urls')),
+      path('books/', include("apps.bookmodule.urls")),
 ]
