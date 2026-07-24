@@ -7,7 +7,6 @@ urlpatterns = [
     path('book/<int:bookid>/', views.viewbook, name="books.view_one_book"),
     path('aboutus/', views.aboutus, name="books.aboutus"),
     
-    # ===== LAB 5 - HTML5 Tasks =====
     path('html5/links/', views.html_links, name="books.html_links"),
     path('html5/text/formatting/', views.html_formatting, name="books.html_formatting"),
     path('html5/listing/', views.html_listing, name="books.html_listing"),
