@@ -88,3 +88,38 @@ def html_listing(request):
 
 def html_tables(request):
     return render(request, 'bookmodule/html_tables.html')
+
+
+
+
+
+def __getBooksList():
+    
+    book1 = {'id': 12344321, 'title': 'Continuous Delivery', 'author': 'J. Humble and D. Farley', 'price': 45.99}
+    book2 = {'id': 56788765, 'title': 'Reversing: Secrets of Reverse Engineering', 'author': 'E. Eilam', 'price': 39.99}
+    book3 = {'id': 43211234, 'title': 'The Hundred-Page Machine Learning Book', 'author': 'Andriy Burkov', 'price': 29.99}
+    return [book1, book2, book3]
+
+def search(request):
+    
+    books = __getBooksList()  
+    context = {'books': books}
+    
+    if request.method == "POST":
+        keyword = request.POST.get('keyword', '').lower()
+        isTitle = request.POST.get('option1')  
+        isAuthor = request.POST.get('option2')  
+        
+        newBooks = []
+        for item in books:
+            contained = False
+            if isTitle and keyword in item['title'].lower():
+                contained = True
+            if not contained and isAuthor and keyword in item['author'].lower():
+                contained = True
+            if contained:
+                newBooks.append(item)
+        
+        context = {'books': newBooks}
+    
+    return render(request, 'bookmodule/search.html', context)
