@@ -1,7 +1,6 @@
 from django.db import models
 
-
-
+# ===== LAB 7 & 8 Models =====
 class Book(models.Model):
     title = models.CharField(max_length=50)
     author = models.CharField(max_length=50)
@@ -17,11 +16,40 @@ class Address(models.Model):
     def __str__(self):
         return self.city
 
-class Student(models.Model):
+# ===== LAB 9 Models =====
+class Card(models.Model):
+    card_number = models.IntegerField(unique=True)
+    
+    def __str__(self):
+        return f"Card {self.card_number}"
+
+class Department(models.Model):
     name = models.CharField(max_length=100)
-    age = models.IntegerField()
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name
-        
+
+class Course(models.Model):
+    title = models.CharField(max_length=100)
+    code = models.IntegerField()
+    
+    def __str__(self):
+        return f"{self.title} ({self.code})"
+
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    card = models.OneToOneField(Card, on_delete=models.PROTECT)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    courses = models.ManyToManyField(Course, through='Enrollment')
+    
+    def __str__(self):
+        return self.name
+
+class Enrollment(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    #date_enrolled = models.DateField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = ('student', 'course')

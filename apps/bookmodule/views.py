@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.db.models import Count, Sum, Avg, Max, Min
 from .models import Book, Address, Student
 from django.db.models import Count, Sum, Avg, Max, Min, Q
+from .models import Book, Address, Student, Department, Course, Card, Enrollment
 
 
 def index(request):
@@ -190,3 +191,23 @@ def lab8_task7(request):
     
     return render(request, 'bookmodule/lab8_task7.html', {'stats': stats})
 
+
+
+def lab9_task1(request):
+    stats = Department.objects.annotate(student_count=Count('student'))
+    return render(request, 'bookmodule/lab9_task1.html', {'stats': stats})
+
+def lab9_task2(request):
+    stats = Course.objects.annotate(student_count=Count('student'))
+    return render(request, 'bookmodule/lab9_task2.html', {'stats': stats})
+
+def lab9_task3(request):
+    from django.db.models import Min
+    stats = Department.objects.annotate(oldest=Min('student__age'))
+    return render(request, 'bookmodule/lab9_task3.html', {'stats': stats})
+
+def lab9_task4(request):
+    stats = Department.objects.annotate(student_count=Count('student'))\
+                               .filter(student_count__gt=2)\
+                               .order_by('-student_count')
+    return render(request, 'bookmodule/lab9_task4.html', {'stats': stats})
