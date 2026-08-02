@@ -6,7 +6,8 @@ from django.db.models import Count, Sum, Avg, Max, Min
 from .models import Book, Address, Student
 from django.db.models import Count, Sum, Avg, Max, Min, Q
 from .models import Book, Address, Student, Department, Course, Card, Enrollment
-
+from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 def index(request):
     books = [
@@ -211,3 +212,50 @@ def lab9_task4(request):
                                .filter(student_count__gt=2)\
                                .order_by('-student_count')
     return render(request, 'bookmodule/lab9_task4.html', {'stats': stats})
+
+
+
+def lab10_part1_listbooks(request):
+    books = Book.objects.all()
+    return render(request, 'bookmodule/lab10_part1_listbooks.html', {'books': books})    
+
+def lab10_part1_addbook(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        author = request.POST.get('author')
+        price = request.POST.get('price')
+        edition = request.POST.get('edition')
+        
+        if title and author and price:
+            Book.objects.create(
+                title=title,
+                author=author,
+                price=float(price),
+                edition=int(edition) if edition else 1
+            )
+            return redirect('books.lab10_part1_listbooks')
+    
+    return render(request, 'bookmodule/lab10_part1_addbook.html')    
+
+
+def lab10_part1_editbook(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    
+    if request.method == 'POST':
+        book.title = request.POST.get('title')
+        book.author = request.POST.get('author')
+        book.price = float(request.POST.get('price'))
+        book.edition = int(request.POST.get('edition')) if request.POST.get('edition') else 1
+        book.save()
+        return redirect('books.lab10_part1_listbooks')
+    
+    return render(request, 'bookmodule/lab10_part1_editbook.html', {'book': book})
+
+def lab10_part1_deletebook(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    
+    if request.method == 'POST':
+        book.delete()
+        return redirect('books.lab10_part1_listbooks')
+    
+    return render(request, 'bookmodule/lab10_part1_deletebook.html', {'book': book})
