@@ -45,12 +45,17 @@ urlpatterns = [
     path('student3/add/', views.student3_add, name="student3_add"),
     path('student3/edit/<int:student_id>/', views.student3_edit, name="student3_edit"),
     path('student3/delete/<int:student_id>/', views.student3_delete, name="student3_delete"),
-    # ===== LAB 11 - TASK 3 (Image Upload) =====
+    
     path('profile/list/', views.profile_list, name="profile_list"),
     path('profile/add/', views.profile_add, name="profile_add"),
     path('profile/edit/<int:profile_id>/', views.profile_edit, name="profile_edit"),
     path('profile/delete/<int:profile_id>/', views.profile_delete, name="profile_delete"),
-   
+    
+    path('lab13/task1/', views.lab13_task1, name="books.lab13_task1"),
+    path('lab13/task2/', views.lab13_task2, name="books.lab13_task2"),
+    path('lab13/task3/', views.lab13_task3, name="books.lab13_task3"),
+    path('lab13/task4/', views.lab13_task4, name="books.lab13_task4"),
+    path('lab13/task5/', views.lab13_task5, name="books.lab13_task5"),
 ]
 
 if settings.DEBUG:

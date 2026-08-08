@@ -448,3 +448,21 @@ def viewbook(request, bookId):
 @login_required
 def aboutus(request):
     return render(request, 'bookmodule/aboutus.html')
+
+
+
+
+def lab13_task1(request):
+    return render(request, 'bookmodule/lab13_task1.html')
+
+def lab13_task2(request):
+    return render(request, 'bookmodule/lab13_task2.html')
+
+def lab13_task3(request):
+    return render(request, 'bookmodule/lab13_task3.html')
+
+def lab13_task4(request):
+    return render(request, 'bookmodule/lab13_task4.html')
+
+def lab13_task5(request):
+    return render(request, 'bookmodule/lab13_task5.html')
