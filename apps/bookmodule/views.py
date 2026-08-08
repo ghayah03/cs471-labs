@@ -426,3 +426,25 @@ def profile_delete(request, profile_id):
         profile.delete()
         return redirect('profile_list')
     return render(request, 'bookmodule/profile_delete.html', {'profile': profile})
+
+
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def index(request):
+    name = request.GET.get("name") or "world!"
+    return render(request, "bookmodule/index.html", {"name": name})
+
+@login_required
+def list_books(request):
+    books = Book.objects.all()
+    return render(request, 'bookmodule/list_books.html', {'books': books})
+
+@login_required
+def viewbook(request, bookId):
+    book = get_object_or_404(Book, id=bookId)
+    return render(request, 'bookmodule/one_book.html', {'book': book})
+
+@login_required
+def aboutus(request):
+    return render(request, 'bookmodule/aboutus.html')

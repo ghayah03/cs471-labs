@@ -23,7 +23,8 @@ import apps.bookmodule.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', apps.bookmodule.views.index),
-     path('bookmodule/', include('apps.bookmodule.urls')),
-    path('usermodule/', include('apps.usermodule.urls')),
-      path('books/', include("apps.bookmodule.urls")),
+    # path('bookmodule/', include('apps.bookmodule.urls')),
+   # path('usermodule/', include('apps.usermodule.urls')),
+    path('books/', include("apps.bookmodule.urls")),
+    path('users/', include('apps.usermodule.urls')),
 ]
