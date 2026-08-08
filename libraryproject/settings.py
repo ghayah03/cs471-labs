@@ -124,3 +124,9 @@ STATICFILES_DIRS = [
 TEMPLATES[0]['DIRS'] = [
     BASE_DIR / 'apps' / 'templates',
 ]
+
+
+import os
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

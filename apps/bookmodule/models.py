@@ -42,6 +42,7 @@ class Student(models.Model):
     card = models.OneToOneField(Card, on_delete=models.PROTECT)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     courses = models.ManyToManyField(Course, through='Enrollment')
+    address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):
         return self.name
@@ -53,3 +54,49 @@ class Enrollment(models.Model):
     
     class Meta:
         unique_together = ('student', 'course')
+
+
+
+
+class Address2(models.Model):
+    city = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.city
+
+class Student2(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    address = models.ForeignKey(Address2, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.name
+
+
+
+
+class Address3(models.Model):
+    city = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.city
+
+class Student3(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    addresses = models.ManyToManyField(Address3)
+    
+    def __str__(self):
+        return self.name    
+
+
+
+
+class Profile(models.Model):
+    name = models.CharField(max_length=100)
+    bio = models.TextField(blank=True)
+    image = models.ImageField(upload_to='profiles/', blank=True, null=True)
+    
+    def __str__(self):
+        return self.name
+        

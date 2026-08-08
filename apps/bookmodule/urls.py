@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name="books.index"),
@@ -28,4 +30,28 @@ urlpatterns = [
     path('lab10_part1/addbook/', views.lab10_part1_addbook, name="books.lab10_part1_addbook"),
     path('lab10_part1/editbook/<int:book_id>/', views.lab10_part1_editbook, name="books.lab10_part1_editbook"),
     path('lab10_part1/deletebook/<int:book_id>/', views.lab10_part1_deletebook, name="books.lab10_part1_deletebook"),
+   
+    path('students/', views.student_list, name="student_list"),
+    path('students/add/', views.student_add, name="student_add"),
+    path('students/edit/<int:student_id>/', views.student_edit, name="student_edit"),
+    path('students/delete/<int:student_id>/', views.student_delete, name="student_delete"),
+  
+    path('student2/list/', views.student2_list, name="student2_list"),
+    path('student2/add/', views.student2_add, name="student2_add"),
+    path('student2/edit/<int:student_id>/', views.student2_edit, name="student2_edit"),
+    path('student2/delete/<int:student_id>/', views.student2_delete, name="student2_delete"),
+   
+    path('student3/list/', views.student3_list, name="student3_list"),
+    path('student3/add/', views.student3_add, name="student3_add"),
+    path('student3/edit/<int:student_id>/', views.student3_edit, name="student3_edit"),
+    path('student3/delete/<int:student_id>/', views.student3_delete, name="student3_delete"),
+    # ===== LAB 11 - TASK 3 (Image Upload) =====
+    path('profile/list/', views.profile_list, name="profile_list"),
+    path('profile/add/', views.profile_add, name="profile_add"),
+    path('profile/edit/<int:profile_id>/', views.profile_edit, name="profile_edit"),
+    path('profile/delete/<int:profile_id>/', views.profile_delete, name="profile_delete"),
+   
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
